@@ -19,17 +19,60 @@ function promptUser() {
   var lowerChar = confirm("Would you like lowercase characters?");
   var upperChar = confirm("Would you like uppercase characters?");
   var specialChar = confirm("Would you like special characters?");
+
+
+
+  if (numChar) {
+    userChoice["numEl"] = numEl;
+  }
+  if (lowerChar) {
+    userChoice["lowerEl"] = lowerEl;
+  }
+  if (upperChar) {
+    userChoice["upperEl"] = upperEl;
+  }
+  if (specialChar) {
+    userChoice["specialEl"] = specialEl;
+  }
+
+  console.log(userChoice);
+}  
+
+promptUser();
+
+function writePassword() {
+  let finalPassword = '';
+  for (var i = 0; i < charLength; i++) {
+    let passwordEls = Object.keys(userChoice)
+    let randomEl = passwordEls[Math.floor(Math.random() * passwordEls.length)]
+    let char = getRandomCharacter(userChoice[randomEl]);
+
+    finalPassword += char;
+
+    console.log('randomCharacter', char);
+    console.timeLog(finalPassword, finalPassword.length);
+    console.log('>>>>>>>>>>>>>>>>', charLength)
+  }
+
+
+
+return finalPassword
 }
 
-if (numChar) {
-  userChoice["numEl"] = numEl;
+function getRandomCharacter(str) {
+  return str[Math.floor(Math.random() * str.length)]
 }
-if (lowerChar) {
-  userChoice["lowerEl"] = lowerEl;
-}
-if (upperChar) {
-  userChoice["upperEl"] = upperEl;
-}
-if (special) {
-  userChoice["specialEl"] = specialEl;
+
+writePassword();
+
+button.addEventListener("click", function(){
+  password.innerHTML = writePassword();
+})
+
+const myInp = document.getElementById("password");
+const btnCopy = document.getElementById("copy");
+
+btnCopy.onClick = function(){
+  myInp.select();
+  document.execCommand("Copy");
 }
